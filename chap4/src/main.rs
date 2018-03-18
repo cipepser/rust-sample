@@ -1,11 +1,11 @@
 // lifetime
-struct Foo<'a> {
-    x: &'a i32,
-}
-
-impl<'a> Foo<'a> {
-    fn x(&self) -> &'a i32 { self.x }
-}
+// struct Foo<'a> {
+//     x: &'a i32,
+// }
+//
+// impl<'a> Foo<'a> {
+//     fn x(&self) -> &'a i32 { self.x }
+// }
 
 fn main() {
     // let x: i32;
@@ -94,9 +94,34 @@ fn main() {
     // println!("{}", y);
     
     // lifetime
-    let y = &5;
-    let f = Foo { x: y };
+    // let y = &5;
+    // let f = Foo { x: y };
+    //
+    // println!("{}", f.x());
     
-    println!("{}", f.x());
+    // update
+    // struct Point3d {
+    //     x: i32,
+    //     y: i32,
+    //     z: i32,
+    // }
+    //
+    // let mut point = Point3d { x: 10, y: 10, z: 10 };
+    // let mut q = Point3d { y: 1, .. point };
+    //
+    // println!("{}", q.x);
+    // println!("{}", q.y);
+    // println!("{}", q.z);
+    //
+    // println!("{}", point.x);
+    // println!("{}", point.y);
+    // println!("{}", point.z);
+    
+    // struct
+    struct Inches(i32);
+    let length = Inches(10);
+
+    let Inches(integer_length) = length;
+    println!("length is {} inches", integer_length);
 
 }
