@@ -42,7 +42,47 @@ fn main() {
     // println!("v2[0] is: {}", v2[0]);
 
     // i32はCopy traitを実装しているので怒られない
-    let x  = 1;
-    let x2 = x;
-    println!("{}", x2);
+    // let x  = 1;
+    // let x2 = x;
+    // println!("{}", x2);
+    
+    // borrowing
+    // let a = vec![1, 2, 3];
+    // let b = vec![2, 3, 1];
+    //
+    // let ans = dot(&a, &b);
+    // println!("{}", ans);
+    //
+    // fn dot(v1: &Vec<i32>, v2: &Vec<i32>) -> i32 {
+    //     let mut d: i32 = 0;
+    //     for i in 0..v1.len() {
+    //         d += v1[i] * v2[i];
+    //     }
+    //     d
+    // }
+    
+    
+    // borrowing2
+    // let mut v = vec![1, 2, 3]; // mutは必要ないけど、pushで変更したい想定でmutにする
+    //
+    // for i in &v {
+    //     println!("{}", i);
+    //     // v.push(34) // loopが借用するので変更できない
+    // }
+    
+    // scope
+    // let y: &i32;
+    // {
+    //     let x = 5;
+    //     y = &x; // xはこの{}内でしか生きていないので、その外で定義されるyに貸そうとすると怒られる。
+    // }
+    //
+    // println!("{}", y);
+    
+    let y: &i32;
+    let x = 5;
+    y = &x; // リソースは宣言された順と逆順(x, yの順)で開放されるのでyのほうがxより長生き。なので怒られる。
+    println!("{}", y);
+    
+
 }
