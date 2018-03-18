@@ -118,10 +118,83 @@ fn main() {
     // println!("{}", point.z);
     
     // struct
-    struct Inches(i32);
-    let length = Inches(10);
+    // struct Inches(i32);
+    // let length = Inches(10);
+    //
+    // let Inches(integer_length) = length;
+    // println!("length is {} inches", integer_length);
+    
+    // pattern
+    // let x = 'x';
+    // let c = 'c';
+    //
+    // match c {
+    //     x => println!("x: {} c: {}", x, c),
+    // }
+    //
+    // println!("x: {}", x)
+    
+    // struct Point {
+    //     x: i32,
+    //     y: i32,
+    // }
+    //
+    // let origin = Point { x: 0, y: 0 };
+    //
+    // match origin {
+    //     Point { y, .. } => println!("x is {}, y is {}", origin.x, y),
+    // }
+    
+    // enum OptionalTuple {
+    //     Value(i32, i32, i32),
+    //     Missing,
+    // }
+    //
+    // let x = OptionalTuple::Value(5, -2, 3);
+    //
+    // match x {
+    //     OptionalTuple::Value(..) => println!("Got a tuple!"),
+    //     OptionalTuple::Missing => println!("No such luck."),
+    // }
+    
+    // // let x = 5;
+    // let mut x = 5;
+    //
+    // match x {
+    //     // ref r => println!("Got a refrence to {}", r),
+    //     ref mut mr => println!("Got a mutable refrence to {}", mr),
+    // }
+    
+    // #[derive(Debug)]
+    // struct Person {
+    //     name: Option<String>,
+    // }
+    //
+    // let name = "Steve".to_string();
+    // let mut x: Option<Person> = Some(Person { name: Some(name) });
+    // match x {
+    //     Some(Person { name: ref a @ Some(_), .. }) => println!("{:?}", a),
+    //     _ => {}
+    // }
+    
+    // let x = 2;
+    //
+    // match x {
+    //     e @ 1 ... 5 | e @ 8 ... 10 => println!("got a range element {}", e),
+    //     _ => println!("anything"),
+    // }
 
-    let Inches(integer_length) = length;
-    println!("length is {} inches", integer_length);
+    enum OptionalInt {
+        Value(i32),
+        Missing,
+    }
+
+    let x = OptionalInt::Value(6);
+
+    match x {
+        OptionalInt::Value(i) if i > 5 => println!("Got an int bigger than five!"),
+        OptionalInt::Value(..) => println!("Got an int!"),
+        OptionalInt::Missing => println!("No such luck."),
+    }
 
 }
