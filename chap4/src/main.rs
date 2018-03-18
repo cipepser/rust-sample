@@ -3,7 +3,19 @@ fn main() {
     // println!("The value of x is: {}", x); // 初期化してないからエラー
     
     // array
-    let a = [1, 2, 3];
-    let b = &a[1..3]; // slice
+    // let a = [1, 2, 3];
+    // let b = &a[1..3]; // slice
     // println!("{}", b[2]);
+    
+    // if
+    let x = 5;
+    if x == 5 {
+        println!("x is 5");
+    } else {
+        println!("x is not 5");
+    }
+    
+    let y = if x == 5 { 10 } else { 15 };
+    
+    println!("{}", y);
 }
