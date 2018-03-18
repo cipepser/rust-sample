@@ -1,3 +1,12 @@
+// lifetime
+struct Foo<'a> {
+    x: &'a i32,
+}
+
+impl<'a> Foo<'a> {
+    fn x(&self) -> &'a i32 { self.x }
+}
+
 fn main() {
     // let x: i32;
     // println!("The value of x is: {}", x); // 初期化してないからエラー
@@ -79,10 +88,15 @@ fn main() {
     //
     // println!("{}", y);
     
-    let y: &i32;
-    let x = 5;
-    y = &x; // リソースは宣言された順と逆順(x, yの順)で開放されるのでyのほうがxより長生き。なので怒られる。
-    println!("{}", y);
+    // let y: &i32;
+    // let x = 5;
+    // y = &x; // リソースは宣言された順と逆順(x, yの順)で開放されるのでyのほうがxより長生き。なので怒られる。
+    // println!("{}", y);
     
+    // lifetime
+    let y = &5;
+    let f = Foo { x: y };
+    
+    println!("{}", f.x());
 
 }
