@@ -7,6 +7,19 @@
 //     fn x(&self) -> &'a i32 { self.x }
 // }
 
+// call method
+struct Circle {
+    x: f64,
+    y: f64,
+    radius: f64,
+}
+
+impl Circle {
+    fn area(&self) -> f64 {
+        std::f64::consts::PI * (self.radius * self.radius)
+    }
+}
+
 fn main() {
     // let x: i32;
     // println!("The value of x is: {}", x); // 初期化してないからエラー
@@ -184,17 +197,20 @@ fn main() {
     //     _ => println!("anything"),
     // }
 
-    enum OptionalInt {
-        Value(i32),
-        Missing,
-    }
+    // enum OptionalInt {
+    //     Value(i32),
+    //     Missing,
+    // }
+    //
+    // let x = OptionalInt::Value(6);
+    //
+    // match x {
+    //     OptionalInt::Value(i) if i > 5 => println!("Got an int bigger than five!"),
+    //     OptionalInt::Value(..) => println!("Got an int!"),
+    //     OptionalInt::Missing => println!("No such luck."),
+    // }
 
-    let x = OptionalInt::Value(6);
-
-    match x {
-        OptionalInt::Value(i) if i > 5 => println!("Got an int bigger than five!"),
-        OptionalInt::Value(..) => println!("Got an int!"),
-        OptionalInt::Missing => println!("No such luck."),
-    }
+    let c = Circle { x: 0.0, y: 0.0, radius: 2.0 };
+    println!("{}", c.area());
 
 }
