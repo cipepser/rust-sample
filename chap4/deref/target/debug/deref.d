@@ -1,0 +1,1 @@
+/Users/respepic/Documents/sand/rust/sample/chap4/deref/target/debug/deref.dSYM: /Users/respepic/Documents/sand/rust/sample/chap4/deref/src/lib.rs /Users/respepic/Documents/sand/rust/sample/chap4/deref/src/main.rs
