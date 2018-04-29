@@ -181,4 +181,12 @@ fn main() {
 
 // 引数の順番で見ているので`cargo run`だとダメ。以下でちゃんといける。
 // ❯ cargo build --release
-// ❯ ./target/debug/city-pop -f uscitiespop.csv madison
+// ❯ ./target/release/city-pop -f ./data/uscitiespop.csv madison
+// madison, us: 37652
+// madison, us: 19100
+// madison, us: 12435
+// madison, us: 5316
+// madison, us: 16786
+// madison, us: 15299
+// madison, us: 6035
+// madison, us: 224625
