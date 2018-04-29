@@ -144,50 +144,70 @@
 // }
 
 // Error トレイト
-use std::io;
-use std::num;
+// use std::io;
+// use std::num;
+//
+// #[derive(Debug)]
+// enum CliError {
+//     Io(io::Error),
+//     Parse(num::ParseIntError)
+// }
+//
+// use std::error;
+// use std::fmt;
+//
+// impl fmt::Display for CliError {
+//     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+//         match *self {
+//             CliError::Io(ref err) => write!(f, "IO error: {}", err),
+//             CliError::Parse(ref err) => write!(f, "Parse error: {}", err),
+//         }
+//     }
+// }
+//
+// impl error::Error for CliError {
+//     fn description(&self) -> &str {
+//         match *self {
+//             CliError::Io(ref err) => err.description(),
+//             CliError::Parse(ref err) => err.description(),
+//         }
+//     }
+//
+//     fn cause(&self) -> Option<&error::Error> {
+//         match *self {
+//             CliError::Io(ref err) => Some(err),
+//             CliError::Parse(ref err) => Some(err),
+//         }
+//     }
+// }
 
-#[derive(Debug)]
-enum CliError {
-    Io(io::Error),
-    Parse(num::ParseIntError)
+// 本当のtry!マクロ
+macro_rules! try {
+    ($e:expr) => (match $e {
+        Ok(val) => val,
+        Err(err) => return Err(::std::convert::From::from(err)),
+    });
 }
 
-use std::error;
-use std::fmt;
+use std::error::Error;
+use std::fs::File;
+use std::io::Read;
+use std::path::Path;
 
-impl fmt::Display for CliError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match *self {
-            CliError::Io(ref err) => write!(f, "IO error: {}", err),
-            CliError::Parse(ref err) => write!(f, "Parse error: {}", err),
-        }
-    }
+fn file_double<P: AsRef<Path>>(file_path: P) -> Result<i32, Box<Error>> {
+    let mut file = try!(File::open(file_path));
+    let mut contents = String::new();
+    try!(file.read_to_string(&mut contents));
+    let n = try!(contents.trim().parse::<i32>());
+    Ok(2 * n)
 }
 
-impl error::Error for CliError {
-    fn description(&self) -> &str {
-        match *self {
-            CliError::Io(ref err) => err.description(),
-            CliError::Parse(ref err) => err.description(),
-        }
-    }
-    
-    fn cause(&self) -> Option<&error::Error> {
-        match *self {
-            CliError::Io(ref err) => Some(err),
-            CliError::Parse(ref err) => Some(err),
-        }
+fn main() {
+    match file_double("foobar") {
+        Ok(n) => println!("{}", n),
+        Err(err) => println!("Error: {:?}", err),
     }
 }
-
-
-
-
-
-
-
-
 
 
 
