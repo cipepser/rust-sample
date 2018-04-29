@@ -25,24 +25,52 @@
 // 2
 
 // コンビネータの限界
+// use std::fs::File;
+// use std::io::Read;
+// use std::path::Path;
+//
+// fn file_double<P: AsRef<Path>>(file_path: P) -> Result<i32, String> {
+//     File::open(file_path)
+//         .map_err(|err| err.to_string())
+//         .and_then(|mut file| {
+//             let mut contents = String::new();
+//             file.read_to_string(&mut contents)
+//                 .map_err(|err| err.to_string())
+//                 .map(|_| contents)
+//         })
+//         .and_then(|contents| {
+//             contents.trim().parse::<i32>()
+//                 .map_err(|err| err.to_string())
+//         })
+//         .map(|n| 2 * n)
+// }
+//
+// fn main() {
+//     match file_double("foobar") {
+//         Ok(n) => println!("{}", n),
+//         Err(err) => println!("Error: {}", err),
+//     }
+// }
+
+// 早期リターン
 use std::fs::File;
 use std::io::Read;
 use std::path::Path;
 
 fn file_double<P: AsRef<Path>>(file_path: P) -> Result<i32, String> {
-    File::open(file_path)
-        .map_err(|err| err.to_string())
-        .and_then(|mut file| {
-            let mut contents = String::new();
-            file.read_to_string(&mut contents)
-                .map_err(|err| err.to_string())
-                .map(|_| contents)
-        })
-        .and_then(|contents| {
-            contents.trim().parse::<i32>()
-                .map_err(|err| err.to_string())
-        })
-        .map(|n| 2 * n)
+    let mut file = match File::open(file_path) {
+        Ok(file) => file,
+        Err(err) => return Err(err.to_string()),
+    };
+    let mut contents = String::new();
+    if let Err(err) = file.read_to_string(&mut contents) {
+        return Err(err.to_string());
+    }
+    let n: i32 = match contents.trim().parse() {
+        Ok(n) => n,
+        Err(err) => return Err(err.to_string()),
+    };
+    Ok(2 * n)
 }
 
 fn main() {
@@ -51,3 +79,40 @@ fn main() {
         Err(err) => println!("Error: {}", err),
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
